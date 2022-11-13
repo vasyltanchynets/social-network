@@ -25,9 +25,7 @@ function App(props) {
                         />
                         <Route
                             path="/dialogs/*"
-                            element={
-                                <Dialogs state={props.state.dialogsPage} />
-                            }
+                            element={<Dialogs store={props.store} />}
                         />
                     </Routes>
                 </div>
