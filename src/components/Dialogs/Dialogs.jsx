@@ -7,11 +7,11 @@ const Dialogs = (props) => {
     let state = props.dialogsPage;
 
     let dialogsElements = state.dialogsData.map((dialog) => (
-        <DialogItem name={dialog.name} id={dialog.id} />
+        <DialogItem name={dialog.name} id={dialog.id} key={dialog.id} />
     ));
 
     let messagesElements = state.messagesData.map((mes) => (
-        <Message message={mes.message} />
+        <Message message={mes.message} key={mes.id} />
     ));
 
     let newMessageBody = state.newMessageBody;
