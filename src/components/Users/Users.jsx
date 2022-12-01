@@ -1,37 +1,15 @@
 import React from "react";
 import styles from "./Users.module.css";
+import axios from "axios";
+import userPhoto from "../../assets/images/user.png";
 
 let Users = (props) => {
     if (props.usersData.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                photoUrl:
-                    "https://pbs.twimg.com/profile_images/1478358634992181248/z18Bm6U0_400x400.jpg",
-                followed: true,
-                fullName: "Jason Statham",
-                status: "actor",
-                location: { country: "USA", city: "Los Angeles" },
-            },
-            {
-                id: 2,
-                photoUrl:
-                    "https://www.biography.com/.image/t_share/MTgwOTI0NDYwNjQ2Mjc4MjMy/gettyimages-1061959920.jpg",
-                followed: false,
-                fullName: "Dwayne Johnson",
-                status: "actor",
-                location: { country: "USA", city: "Los Angeles" },
-            },
-            {
-                id: 3,
-                photoUrl:
-                    "https://lastfm.freetls.fastly.net/i/u/770x0/d8eb971d0a1d12e05467f76356cddb37.jpg",
-                followed: false,
-                fullName: "Vin Diesel",
-                status: "actor",
-                location: { country: "USA", city: "Los Angeles" },
-            },
-        ]);
+        axios
+            .get("https://social-network.samuraijs.com/api/1.0/users")
+            .then((response) => {
+                props.setUsers(response.data.items);
+            });
     }
 
     return (
@@ -41,7 +19,11 @@ let Users = (props) => {
                     <span>
                         <div>
                             <img
-                                src={user.photoUrl}
+                                src={
+                                    user.photos.small != null
+                                        ? user.photos.small
+                                        : userPhoto
+                                }
                                 className={styles.userPhoto}
                                 alt=""
                             />
@@ -68,12 +50,12 @@ let Users = (props) => {
                     </span>
                     <span>
                         <span>
-                            <div>{user.fullName}</div>
+                            <div>{user.name}</div>
                             <div>{user.status}</div>
                         </span>
                         <span>
-                            <div>{user.location.country}</div>
-                            <div>{user.location.city}</div>
+                            <div>{"user.location.country"}</div>
+                            <div>{"user.location.city"}</div>
                         </span>
                     </span>
                 </div>
