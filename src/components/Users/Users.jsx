@@ -50,7 +50,15 @@ let Users = (props) => {
                         <div>
                             {user.followed ? (
                                 <button
+                                    disabled={props.followingInProgress.some(
+                                        (id) => id === user.id
+                                    )}
                                     onClick={() => {
+                                        // disabled button
+                                        props.toggleIsFollowingInProgress(
+                                            true,
+                                            user.id
+                                        );
                                         axios
                                             .delete(
                                                 `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
@@ -69,6 +77,11 @@ let Users = (props) => {
                                                 ) {
                                                     props.unfollow(user.id);
                                                 }
+                                                // no disabled button
+                                                props.toggleIsFollowingInProgress(
+                                                    false,
+                                                    user.id
+                                                );
                                             });
                                     }}
                                 >
@@ -76,7 +89,14 @@ let Users = (props) => {
                                 </button>
                             ) : (
                                 <button
+                                    disabled={props.followingInProgress.some(
+                                        (id) => id === user.id
+                                    )}
                                     onClick={() => {
+                                        props.toggleIsFollowingInProgress(
+                                            true,
+                                            user.id
+                                        );
                                         axios
                                             .post(
                                                 `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
@@ -96,6 +116,10 @@ let Users = (props) => {
                                                 ) {
                                                     props.follow(user.id);
                                                 }
+                                                props.toggleIsFollowingInProgress(
+                                                    false,
+                                                    user.id
+                                                );
                                             });
                                     }}
                                 >
